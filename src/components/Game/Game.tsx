@@ -1,5 +1,11 @@
+'use client';
+
 import React from 'react';
+import { GiDinosaurRex } from 'react-icons/gi';
+import { useFrameTime } from '@/hooks/useFrameTime';
 
 export const Game = () => {
-    return <div className="game">game</div>;
+    const deltaTime = useFrameTime();
+    console.log('deltaTime', deltaTime);
+    return <GiDinosaurRex />;
 };

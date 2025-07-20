@@ -1,8 +1,6 @@
 import { Game as GameContent, TopBar } from '@/components';
 
 import React from 'react';
-import { GiDinosaurRex } from 'react-icons/gi';
-import { useFrameTime } from '@/hooks/useFrameTime';
 
 export const Game = () => {
     return (

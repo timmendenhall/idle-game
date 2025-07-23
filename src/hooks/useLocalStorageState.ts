@@ -1,28 +1,35 @@
+'use client';
+
 import * as React from 'react';
 
 export type Serializer = (data: object) => string;
 export type Deserializer = (serialized: string) => object;
 
 export interface UseLocalStorageStateOptions {
-    serialize: Serializer;
-    deserialize: Deserializer;
+    serialize?: Serializer;
+    deserialize?: Deserializer;
 }
 
-export const useLocalStorageState = (
-    key: string,
-    defaultValue: object = {},
-    {
-        serialize = JSON.stringify,
-        deserialize = JSON.parse,
-    }: UseLocalStorageStateOptions,
-) => {
+export interface UseLocalStorageStateParams {
+    key: string;
+    defaultValue: object;
+    options?: UseLocalStorageStateOptions;
+}
+
+export const useLocalStorageState = ({
+    key,
+    defaultValue,
+    options = {},
+}: UseLocalStorageStateParams) => {
+    const { serialize = JSON.stringify, deserialize = JSON.parse } = options;
+
     const [state, setState] = React.useState(() => {
-        const valueInLocalStorage = window.localStorage.getItem(key);
+        const valueInLocalStorage = window?.localStorage.getItem(key);
         if (valueInLocalStorage) {
             try {
                 return deserialize(valueInLocalStorage);
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            } catch (_error) {
+            } catch (error) {
                 window.localStorage.removeItem(key);
             }
         }

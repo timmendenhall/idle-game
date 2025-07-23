@@ -1,5 +1,3 @@
-'use client';
-
 import React, { createContext, ReactNode, useEffect, useState } from 'react';
 import { useFrameTime } from '@/hooks/useFrameTime';
 

@@ -13,9 +13,9 @@ export const GameStateContext = createContext<GameStateContextType | undefined>(
 export const GameStateProvider = ({ children }: { children: ReactNode }) => {
     const [bones, setBones] = useState<number>(0);
 
-    useFrameTime(() => {
-        const additionalBones: number = BASE_BONES_PER_SECOND;
-        setBones(bones);
+    useFrameTime((dt: number) => {
+        const deltaSeconds: number = dt / 1000.0;
+        const additionalBones: number = BASE_BONES_PER_SECOND * deltaSeconds;
         setBones((prev) => prev + additionalBones);
     });
 

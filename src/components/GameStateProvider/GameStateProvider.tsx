@@ -15,11 +15,8 @@ export const GameStateContext = createContext<GameStateContextType | undefined>(
 
 export const GameStateProvider = ({ children }: { children: ReactNode }) => {
     const [state, setLocalStorageState] =
-        useLocalStorageState<GameStateContextType>({
-            key: 'game1',
-            defaultValue: {
-                bones: 0,
-            },
+        useLocalStorageState<GameStateContextType>('game1', {
+            bones: 0,
         });
     const [bones, setBones] = useState<number>(state.bones);
 

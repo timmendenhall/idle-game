@@ -11,7 +11,7 @@ export const TopBar = () => {
             <GiHamburgerMenu />
             <div className="flex flex-row items-center pl-3">
                 <PiBone />
-                <span>{bones}</span>
+                <span>{bones.toFixed(2)}</span>
             </div>
         </div>
     );

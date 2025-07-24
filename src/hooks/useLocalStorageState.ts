@@ -10,17 +10,11 @@ export interface UseLocalStorageStateOptions {
     deserialize?: Deserializer;
 }
 
-export interface UseLocalStorageStateParams {
-    key: string;
-    defaultValue: object;
-    options?: UseLocalStorageStateOptions;
-}
-
-export const useLocalStorageState = <S extends object>({
-    key,
-    defaultValue,
-    options = {},
-}: UseLocalStorageStateParams): [S, Dispatch<SetStateAction<S>>] => {
+export const useLocalStorageState = <S extends object>(
+    key: string,
+    defaultValue: S,
+    options: UseLocalStorageStateOptions = {},
+): [S, Dispatch<SetStateAction<S>>] => {
     const { serialize = JSON.stringify, deserialize = JSON.parse } = options;
 
     const [state, setState] = useState<S>(() => {

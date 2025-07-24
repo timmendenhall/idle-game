@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import { Dispatch, SetStateAction, useState, useEffect, useRef } from 'react';
 
 export type Serializer = (data: object) => string;
 export type Deserializer = (serialized: string) => object;
@@ -16,14 +16,14 @@ export interface UseLocalStorageStateParams {
     options?: UseLocalStorageStateOptions;
 }
 
-export const useLocalStorageState = ({
+export const useLocalStorageState = <S extends object>({
     key,
     defaultValue,
     options = {},
-}: UseLocalStorageStateParams) => {
+}: UseLocalStorageStateParams): [S, Dispatch<SetStateAction<S>>] => {
     const { serialize = JSON.stringify, deserialize = JSON.parse } = options;
 
-    const [state, setState] = React.useState(() => {
+    const [state, setState] = useState<S>(() => {
         const valueInLocalStorage = global?.localStorage?.getItem(key);
         if (valueInLocalStorage) {
             try {
@@ -33,18 +33,18 @@ export const useLocalStorageState = ({
                 global?.localStorage?.removeItem(key);
             }
         }
-        return defaultValue;
+        return defaultValue as S;
     });
 
-    const prevKeyRef = React.useRef(key);
+    const prevKeyRef = useRef(key);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const prevKey = prevKeyRef.current;
         if (prevKey !== key) {
             global?.localStorage?.removeItem(prevKey);
         }
         prevKeyRef.current = key;
-        console.log('setting state - ', state);
+        console.log('setting state - ', state, key, serialize);
         global?.localStorage?.setItem(key, serialize(state));
     }, [key, state, serialize]);
 

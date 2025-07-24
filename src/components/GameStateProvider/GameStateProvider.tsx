@@ -14,10 +14,11 @@ export const GameStateContext = createContext<GameStateContextType | undefined>(
 );
 
 export const GameStateProvider = ({ children }: { children: ReactNode }) => {
-    const [state, setLocalStorageState] =
+    const [state, setLocalStorageState, isHydrated] =
         useLocalStorageState<GameStateContextType>('game1', {
             bones: 0,
         });
+
     const [bones, setBones] = useState<number>(state.bones);
 
     useInterval((dt: number) => {
@@ -32,6 +33,10 @@ export const GameStateProvider = ({ children }: { children: ReactNode }) => {
         },
         { delay: DEFAULT_AUTO_SAVE_DELAY },
     );
+
+    if (!isHydrated) {
+        return null;
+    }
 
     return (
         <GameStateContext.Provider value={{ bones }}>

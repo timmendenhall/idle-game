@@ -14,33 +14,47 @@ export const useLocalStorageState = <S extends object>(
     key: string,
     defaultValue: S,
     options: UseLocalStorageStateOptions = {},
-): [S, Dispatch<SetStateAction<S>>] => {
+): [state: S, setState: Dispatch<SetStateAction<S>>, isHydrated: boolean] => {
     const { serialize = JSON.stringify, deserialize = JSON.parse } = options;
 
     const [state, setState] = useState<S>(() => {
-        const valueInLocalStorage = global?.localStorage?.getItem(key);
-        if (valueInLocalStorage) {
-            try {
-                return deserialize(valueInLocalStorage);
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            } catch (error) {
-                global?.localStorage?.removeItem(key);
-            }
+        if (typeof window === 'undefined') {
+            // SSR: can't access localStorage
+            return defaultValue;
         }
-        return defaultValue as S;
+
+        try {
+            const stored = window.localStorage.getItem(key);
+            if (stored) {
+                return deserialize(stored) as S;
+            }
+        } catch (e) {
+            console.warn('Failed to load from localStorage:', e);
+        }
+
+        return defaultValue;
     });
+    const [isHydrated, setIsHydrated] = useState(false);
+
+    useEffect(() => {
+        setIsHydrated(true); // Indicates that we're on the client
+    }, []);
 
     const prevKeyRef = useRef(key);
 
     useEffect(() => {
-        const prevKey = prevKeyRef.current;
-        if (prevKey !== key) {
-            global?.localStorage?.removeItem(prevKey);
+        if (!isHydrated) return;
+        if (prevKeyRef.current !== key) {
+            window.localStorage.removeItem(prevKeyRef.current);
         }
         prevKeyRef.current = key;
-        console.log('setting state - ', state, key, serialize);
-        global?.localStorage?.setItem(key, serialize(state));
-    }, [key, state, serialize]);
 
-    return [state, setState];
+        try {
+            window.localStorage.setItem(key, serialize(state));
+        } catch (e) {
+            console.warn('Failed to save to localStorage:', e);
+        }
+    }, [key, state, serialize, isHydrated]);
+
+    return [state, setState, isHydrated];
 };

@@ -24,13 +24,13 @@ export const useLocalStorageState = ({
     const { serialize = JSON.stringify, deserialize = JSON.parse } = options;
 
     const [state, setState] = React.useState(() => {
-        const valueInLocalStorage = window?.localStorage.getItem(key);
+        const valueInLocalStorage = global?.localStorage?.getItem(key);
         if (valueInLocalStorage) {
             try {
                 return deserialize(valueInLocalStorage);
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
             } catch (error) {
-                window.localStorage.removeItem(key);
+                global?.localStorage?.removeItem(key);
             }
         }
         return defaultValue;
@@ -38,14 +38,14 @@ export const useLocalStorageState = ({
 
     const prevKeyRef = React.useRef(key);
 
-    // Check the example at src/examples/local-state-key-change.js to visualize a key change
     React.useEffect(() => {
         const prevKey = prevKeyRef.current;
         if (prevKey !== key) {
-            window.localStorage.removeItem(prevKey);
+            global?.localStorage?.removeItem(prevKey);
         }
         prevKeyRef.current = key;
-        window.localStorage.setItem(key, serialize(state));
+        console.log('setting state - ', state);
+        global?.localStorage?.setItem(key, serialize(state));
     }, [key, state, serialize]);
 
     return [state, setState];

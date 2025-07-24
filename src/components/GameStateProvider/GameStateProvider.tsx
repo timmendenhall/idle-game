@@ -1,3 +1,5 @@
+'use client';
+
 import React, { createContext, ReactNode, useEffect, useState } from 'react';
 import { useFrameTime } from '@/hooks/useFrameTime';
 import { BASE_BONES_PER_SECOND } from '@/constants';
@@ -12,7 +14,7 @@ export const GameStateContext = createContext<GameStateContextType | undefined>(
 );
 
 export const GameStateProvider = ({ children }: { children: ReactNode }) => {
-    const [state, setState] = useLocalStorageState({
+    const [state, setLocalStorageState] = useLocalStorageState({
         key: 'game1',
         defaultValue: {
             bones: 0,
@@ -26,11 +28,20 @@ export const GameStateProvider = ({ children }: { children: ReactNode }) => {
         setBones((prev) => prev + additionalBones);
     });
 
+    const handleTabClosing = () => {
+        console.log('handleTabClosing START ', bones);
+        setLocalStorageState({
+            bones,
+        });
+        console.log('handleTabClosing DONE');
+    };
+
     useEffect(() => {
+        window.addEventListener('unload', handleTabClosing);
         return () => {
-            setState(state);
+            window.removeEventListener('unload', handleTabClosing);
         };
-    }, []);
+    });
 
     return (
         <GameStateContext.Provider value={{ bones }}>

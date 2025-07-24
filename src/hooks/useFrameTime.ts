@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useRef } from 'react';
 import { TICKS_PER_SECOND } from '@/constants';
 

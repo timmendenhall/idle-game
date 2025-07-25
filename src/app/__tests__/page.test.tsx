@@ -1,8 +1,11 @@
-import { expect, test } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
+
 import Page from '../page';
 
-test('Page', () => {
+vi.mock('next/navigation');
+
+test('should render correctly', () => {
     render(<Page />);
     expect(
         screen.getByRole('heading', { level: 1, name: 'Idle Game' }),

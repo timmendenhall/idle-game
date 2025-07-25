@@ -2,7 +2,7 @@ import { test, vi } from 'vitest';
 import { screen } from '@testing-library/react';
 import { render } from '@/test/util';
 
-import Page from '../page';
+import Page from './page';
 
 vi.mock('next/navigation');
 

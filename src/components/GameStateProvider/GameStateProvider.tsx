@@ -2,8 +2,13 @@
 
 import React, { createContext, ReactNode, useState } from 'react';
 import { useInterval } from '@/hooks/useInterval';
-import { BASE_BONES_PER_SECOND, DEFAULT_AUTO_SAVE_DELAY } from '@/constants';
+import {
+    BASE_BONES_PER_SECOND,
+    DEFAULT_AUTO_SAVE_DELAY,
+    GAME_SAVE_KEY,
+} from '@/constants';
 import { useLocalStorageState } from '@/hooks/useLocalStorageState';
+import { LoadingIndicator } from '@/components';
 
 export interface GameStateContextType {
     bones: number;
@@ -15,7 +20,7 @@ export const GameStateContext = createContext<GameStateContextType | undefined>(
 
 export const GameStateProvider = ({ children }: { children: ReactNode }) => {
     const [state, setLocalStorageState, isHydrated] =
-        useLocalStorageState<GameStateContextType>('game1', {
+        useLocalStorageState<GameStateContextType>(GAME_SAVE_KEY, {
             bones: 0,
         });
 
@@ -35,7 +40,7 @@ export const GameStateProvider = ({ children }: { children: ReactNode }) => {
     );
 
     if (!isHydrated) {
-        return null;
+        return <LoadingIndicator />;
     }
 
     return (

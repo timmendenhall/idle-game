@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { PiBone } from 'react-icons/pi';

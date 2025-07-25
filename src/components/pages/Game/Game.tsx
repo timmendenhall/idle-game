@@ -1,9 +1,6 @@
 'use client';
 
-import { Game as GameContent, TopBar } from '@/components';
-
-import React from 'react';
-import { GameStateProvider } from '@/components/GameStateProvider';
+import { Game as GameContent, GameStateProvider, TopBar } from '@/components';
 
 export const Game = () => {
     return (

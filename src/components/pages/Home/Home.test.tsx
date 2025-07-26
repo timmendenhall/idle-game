@@ -3,6 +3,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useRouter } from 'next/navigation';
 
+import { Routes } from '@/constants';
 import { render } from '@/test/util';
 import { Home } from '@/components/pages';
 
@@ -26,5 +27,5 @@ test('should render correctly and navigate when Play is clicked', async () => {
     await user.click(playButton);
 
     // Assert navigation
-    expect(push).toHaveBeenCalledWith('/game'); // adjust the path if different
+    expect(push).toHaveBeenCalledWith(Routes.GAME);
 });

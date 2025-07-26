@@ -22,7 +22,8 @@ describe('GameStateProvider', () => {
     });
 
     afterEach(() => {
-        vi.restoreAllMocks();
+        vi.clearAllMocks();
+        vi.useRealTimers();
     });
 
     it('shows loading if not hydrated', () => {

@@ -2,7 +2,10 @@ import React, { useContext } from 'react';
 import { render, screen, act } from '@testing-library/react';
 import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
 import { useInterval, useLocalStorageState } from '@/hooks';
-import { GameStateContext, GameStateProvider } from './GameStateProvider';
+import {
+    GameStateContext,
+    GameStateProvider,
+} from '@/components/GameStateProvider';
 
 vi.mock('@/hooks/useInterval', { spy: true });
 vi.mock('@/hooks/useLocalStorageState', { spy: true });
@@ -75,7 +78,7 @@ describe('GameStateProvider', () => {
         expect(useInterval).toHaveBeenCalledTimes(2);
     });
 
-    it('updates bones over time (simulate interval callback)', () => {
+    it('provides context to children and simulates single game tick', () => {
         const setLocalStorageState = vi.fn();
         vi.mocked(useLocalStorageState).mockReturnValue([
             { bones: 0 },
@@ -96,21 +99,4 @@ describe('GameStateProvider', () => {
         expect(useInterval).toHaveBeenCalled();
         expect(screen.getByText('bones: 0.066')).toBeInTheDocument();
     });
-
-    // it('provides bones context to children', () => {
-    //     useLocalStorageState.mockReturnValue([{ bones: 123 }, vi.fn(), true]);
-    //
-    //     const Consumer = () => {
-    //         const context = React.useContext(GameStateContext);
-    //         return <div>Bone count: {context?.bones}</div>;
-    //     };
-    //
-    //     render(
-    //         <GameStateProvider>
-    //             <Consumer />
-    //         </GameStateProvider>,
-    //     );
-    //
-    //     expect(screen.getByText('Bone count: 123')).toBeInTheDocument();
-    // });
 });

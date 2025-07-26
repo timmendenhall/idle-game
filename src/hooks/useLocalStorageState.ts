@@ -37,7 +37,7 @@ export const useLocalStorageState = <S extends object>(
     const [isHydrated, setIsHydrated] = useState(false);
 
     useEffect(() => {
-        setIsHydrated(true); // Indicates that we're on the client
+        setIsHydrated(true);
     }, []);
 
     const prevKeyRef = useRef(key);

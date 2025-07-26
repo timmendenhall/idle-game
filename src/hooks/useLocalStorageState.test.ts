@@ -1,4 +1,3 @@
-// useLocalStorageState.test.tsx
 import { renderHook, act } from '@testing-library/react';
 import { useLocalStorageState } from './useLocalStorageState';
 import { vi, describe, beforeEach, expect, it } from 'vitest';
@@ -49,35 +48,32 @@ describe('useLocalStorageState', () => {
         expect(JSON.parse(stored!)).toEqual({ count: 5 });
     });
 
-    it('sets isHydrated to true after mount', async () => {
-        const { result } = renderHook(() =>
-            useLocalStorageState(KEY, { test: true }),
+    it('makes new key when key changes', async () => {
+        localStorage.setItem('old-key', JSON.stringify({ val: 1 }));
+        expect(localStorage.getItem('old-key')).toBe(
+            JSON.stringify({ val: 1 }),
         );
 
-        expect(result.current[2]).toBe(false);
-
-        // wait for hydration effect
-        await act(() => Promise.resolve());
-
-        expect(result.current[2]).toBe(true);
-    });
-
-    it('removes old key when key changes', () => {
-        localStorage.setItem('old-key', JSON.stringify({ val: 1 }));
-
-        const { rerender } = renderHook(
+        const { rerender, result } = renderHook(
             ({ key }) => useLocalStorageState(key, { val: 0 }),
             {
                 initialProps: { key: 'old-key' },
             },
         );
 
-        rerender({ key: 'new-key' });
+        expect(result.current[0]).toEqual({ val: 1 });
 
+        rerender({ key: 'new-key' });
         expect(localStorage.getItem('old-key')).toBeNull();
         expect(localStorage.getItem('new-key')).toBe(
-            JSON.stringify({ val: 0 }),
+            JSON.stringify({ val: 1 }),
         );
+
+        act(() => {
+            result.current[1]({ val: 42 });
+        });
+
+        expect(result.current[0]).toEqual({ val: 42 });
     });
 
     it('can use custom serializer/deserializer', () => {

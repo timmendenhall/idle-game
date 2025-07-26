@@ -1,4 +1,3 @@
-// useInterval.test.tsx
 import { renderHook } from '@testing-library/react';
 import { useInterval } from './useInterval';
 import { vi, describe, beforeEach, afterEach, expect, it } from 'vitest';

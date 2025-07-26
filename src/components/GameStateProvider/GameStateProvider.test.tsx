@@ -1,8 +1,8 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { useLocalStorageState } from '@/hooks';
-import { GameStateProvider } from './GameStateProvider';
+import React, { useContext } from 'react';
+import { render, screen, act } from '@testing-library/react';
+import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
+import { useInterval, useLocalStorageState } from '@/hooks';
+import { GameStateContext, GameStateProvider } from './GameStateProvider';
 
 vi.mock('@/hooks/useInterval', { spy: true });
 vi.mock('@/hooks/useLocalStorageState', { spy: true });
@@ -12,8 +12,17 @@ vi.mock('@/components', () => ({
 }));
 
 describe('GameStateProvider', () => {
+    const TestConsumer = () => {
+        const state = useContext(GameStateContext);
+        return <div>bones: {state?.bones}</div>;
+    };
+
     beforeEach(() => {
-        vi.clearAllMocks();
+        vi.useFakeTimers();
+    });
+
+    afterEach(() => {
+        vi.restoreAllMocks();
     });
 
     it('shows loading if not hydrated', () => {
@@ -48,54 +57,45 @@ describe('GameStateProvider', () => {
         expect(screen.getByText('Child content')).toBeInTheDocument();
     });
 
-    // it('calls useInterval for bone accumulation and auto-save', () => {
-    //     const setLocalStorageState = vi.fn();
-    //     useLocalStorageState.mockReturnValue([
-    //         { bones: 10 },
-    //         setLocalStorageState,
-    //         true,
-    //     ]);
-    //
-    //     render(
-    //         <GameStateProvider>
-    //             <div>Child</div>
-    //         </GameStateProvider>,
-    //     );
-    //
-    //     expect(useInterval).toHaveBeenCalledTimes(2);
-    //     expect(useInterval.mock.calls[1][1]).toEqual({
-    //         delay: expect.any(Number),
-    //     });
-    // });
-    //
-    // it('updates bones over time (simulate interval callback)', () => {
-    //     const setLocalStorageState = vi.fn();
-    //     const intervalCallbacks: ((dt: number) => void)[] = [];
-    //
-    //     // useInterval.mockImplementation((cb: (dt: number) => void) => {
-    //     //     intervalCallbacks.push(cb);
-    //     // });
-    //
-    //     useLocalStorageState.mockReturnValue([
-    //         { bones: 0 },
-    //         setLocalStorageState,
-    //         true,
-    //     ]);
-    //
-    //     render(
-    //         <GameStateProvider>
-    //             <div>Child</div>
-    //         </GameStateProvider>,
-    //     );
-    //
-    //     // Simulate frame interval passing
-    //     intervalCallbacks; // 1 second
-    //
-    //     // Cannot directly assert bone increase without exposing state,
-    //     // but we could refactor to expose context for better testing.
-    //     expect(useInterval).toHaveBeenCalled();
-    // });
-    //
+    it('calls useInterval for bone accumulation and auto-save', () => {
+        const setLocalStorageState = vi.fn();
+        vi.mocked(useLocalStorageState).mockReturnValue([
+            { bones: 10 },
+            setLocalStorageState,
+            true,
+        ]);
+
+        render(
+            <GameStateProvider>
+                <div>Child</div>
+            </GameStateProvider>,
+        );
+
+        expect(useInterval).toHaveBeenCalledTimes(2);
+    });
+
+    it('updates bones over time (simulate interval callback)', () => {
+        const setLocalStorageState = vi.fn();
+        vi.mocked(useLocalStorageState).mockReturnValue([
+            { bones: 0 },
+            setLocalStorageState,
+            true,
+        ]);
+
+        render(
+            <GameStateProvider>
+                <TestConsumer />
+            </GameStateProvider>,
+        );
+
+        act(() => {
+            vi.advanceTimersToNextTimer();
+        });
+
+        expect(useInterval).toHaveBeenCalled();
+        expect(screen.getByText('bones: 0.066')).toBeInTheDocument();
+    });
+
     // it('provides bones context to children', () => {
     //     useLocalStorageState.mockReturnValue([{ bones: 123 }, vi.fn(), true]);
     //

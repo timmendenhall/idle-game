@@ -5,5 +5,5 @@ import { LoadingIndicator } from '@/components';
 
 test('should render correctly', () => {
     render(<LoadingIndicator />);
-    expect(screen.getByRole('status', { name: '' })).toBeDefined();
+    expect(screen.getByRole('status', { name: '' })).toBeInTheDocument();
 });

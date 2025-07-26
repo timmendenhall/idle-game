@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { useLocalStorageState } from '@/hooks';
-import { GameStateProvider } from '@/components';
+import { GameStateProvider } from './GameStateProvider';
 
 vi.mock('@/hooks/useInterval', { spy: true });
 vi.mock('@/hooks/useLocalStorageState', { spy: true });

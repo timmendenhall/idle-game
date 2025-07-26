@@ -1,8 +1,13 @@
 import { vi } from 'vitest';
 
+const push = vi.fn();
+const replace = vi.fn();
+const prefetch = vi.fn();
+const back = vi.fn();
+
 export const useRouter = () => ({
-    push: vi.fn(),
-    replace: vi.fn(),
-    prefetch: vi.fn(),
-    back: vi.fn(),
+    push,
+    replace,
+    prefetch,
+    back,
 });

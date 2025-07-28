@@ -1,13 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { renderHook } from '@testing-library/react';
 import { useGameState } from './useGameState';
-import {
-    GameStateContext,
-    GameStateContextType,
-} from '@/components/GameStateProvider';
+import { GameStateContext } from '@/state/context';
 import { ReactNode } from 'react';
+import { GameState } from '@/state/reducers';
 
-const mockGameState: GameStateContextType = {
+const mockGameState: GameState = {
     bones: 42,
 };
 

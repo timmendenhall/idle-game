@@ -1,7 +1,7 @@
 'use client';
 
 import { useContext } from 'react';
-import { GameStateContext } from '@/components/GameStateProvider';
+import { GameStateContext } from '@/state/context';
 import { GameState } from '@/state/reducers/GameState';
 
 export const useGameState = (): GameState => {

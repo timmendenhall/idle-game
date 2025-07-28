@@ -2,10 +2,8 @@ import React, { useContext } from 'react';
 import { render, screen, act } from '@testing-library/react';
 import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
 import { useInterval, useLocalStorageState } from '@/hooks';
-import {
-    GameStateContext,
-    GameStateProvider,
-} from '@/components/GameStateProvider';
+import { GameStateProvider } from '@/state/providers';
+import { GameStateContext } from '@/state/context';
 
 vi.mock('@/hooks/useInterval', { spy: true });
 vi.mock('@/hooks/useLocalStorageState', { spy: true });

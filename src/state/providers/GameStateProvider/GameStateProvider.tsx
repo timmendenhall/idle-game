@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, ReactNode, useReducer } from 'react';
+import React, { ReactNode, useReducer } from 'react';
 import { useInterval } from '@/hooks/useInterval';
 import {
     BASE_BONES_PER_SECOND,
@@ -13,12 +13,8 @@ import gameStateReducer, {
     createGameState,
     GameState,
 } from '@/state/reducers/GameState';
-import { addBones, GameStateAction } from '@/state/actions';
-
-export const GameStateContext = createContext<GameState | undefined>(undefined);
-export const GameStateDispatchContext = createContext<
-    React.Dispatch<GameStateAction> | undefined
->(undefined);
+import { addBones } from '@/state/actions';
+import { GameStateContext, GameStateDispatchContext } from '@/state/context';
 
 const DEFAULT_STATE: GameState = createGameState();
 

@@ -12,14 +12,14 @@ export const createGameState = (
 });
 
 export default function gameStateReducer(
-    state: GameState,
+    prevState: GameState,
     action: GameStateAction,
 ) {
     switch (action.type) {
         case 'game_state/add_bones': {
             return {
-                ...state,
-                bones: state.bones + (action.payload ?? 0),
+                ...prevState,
+                bones: prevState.bones + (action.payload ?? 0),
             };
         }
         default: {

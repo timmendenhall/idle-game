@@ -1,33 +1,27 @@
-import { ADD_BONES } from '@/state/actions';
+import { GameStateAction } from '@/state/actions';
 
 export interface GameState {
     bones: number;
 }
 
-export default function gameStateReducer(state, action) {
+export const createGameState = (
+    defaultStateOverrides: Partial<GameState> = {},
+): GameState => ({
+    bones: 0,
+    ...defaultStateOverrides,
+});
+
+export default function gameStateReducer(
+    state: GameState,
+    action: GameStateAction,
+) {
     switch (action.type) {
         case 'game_state/add_bones': {
-            return [
+            return {
                 ...state,
-                {
-                    id: action.id,
-                    text: action.text,
-                    done: false,
-                },
-            ];
+                bones: state.bones + (action.payload ?? 0),
+            };
         }
-        // case 'changed': {
-        //     return tasks.map((t) => {
-        //         if (t.id === action.task.id) {
-        //             return action.task;
-        //         } else {
-        //             return t;
-        //         }
-        //     });
-        // }
-        // case 'deleted': {
-        //     return tasks.filter((t) => t.id !== action.id);
-        // }
         default: {
             throw Error('Unknown action: ' + action.type);
         }

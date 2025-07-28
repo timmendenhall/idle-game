@@ -1,12 +1,10 @@
 'use client';
 
 import { useContext } from 'react';
-import {
-    GameStateContext,
-    GameStateContextType,
-} from '@/components/GameStateProvider';
+import { GameStateContext } from '@/components/GameStateProvider';
+import { GameState } from '@/state/reducers/GameState';
 
-export const useGameState = (): GameStateContextType => {
+export const useGameState = (): GameState => {
     const context = useContext(GameStateContext);
     if (!context) {
         throw new Error('useGameState must be used within a GameStateProvider');

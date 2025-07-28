@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, ReactNode, useState } from 'react';
+import React, { createContext, ReactNode, useReducer } from 'react';
 import { useInterval } from '@/hooks/useInterval';
 import {
     BASE_BONES_PER_SECOND,
@@ -9,14 +9,9 @@ import {
 } from '@/constants';
 import { useLocalStorageState } from '@/hooks/useLocalStorageState';
 import { LoadingIndicator } from '@/components';
+import gameStateReducer, { GameState } from '@/state/reducers/GameState';
 
-export interface GameStateContextType {
-    bones: number;
-}
-
-export const GameStateContext = createContext<GameStateContextType | undefined>(
-    undefined,
-);
+export const GameStateContext = createContext<GameState | undefined>(undefined);
 
 export const GameStateProvider = ({ children }: { children: ReactNode }) => {
     const [state, setLocalStorageState, isHydrated] =
@@ -24,7 +19,7 @@ export const GameStateProvider = ({ children }: { children: ReactNode }) => {
             bones: 0,
         });
 
-    const [bones, setBones] = useState<number>(state.bones);
+    const [gameState, dispatch] = useReducer(gameStateReducer, {});
 
     useInterval((dt: number) => {
         const deltaSeconds: number = dt / 1000.0;

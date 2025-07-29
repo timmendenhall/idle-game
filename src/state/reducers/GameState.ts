@@ -2,12 +2,14 @@ import { GameStateAction } from '@/state/actions';
 
 export interface GameState {
     bones: number;
+    boneDiggers: number;
 }
 
 export const createGameState = (
     defaultStateOverrides: Partial<GameState> = {},
 ): GameState => ({
     bones: 0,
+    boneDiggers: 0,
     ...defaultStateOverrides,
 });
 

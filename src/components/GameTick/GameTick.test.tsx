@@ -14,6 +14,7 @@ import { useInterval, useLocalStorageState } from '@/hooks';
 import { useGameStateDispatch } from '@/state/hooks/useGameStateDispatch';
 import { render } from '@/test/util';
 import { GameTick } from '@/components/GameTick';
+import { createGameState } from '@/state/reducers';
 
 vi.mock('@/hooks/useInterval', { spy: true });
 vi.mock('@/hooks/useLocalStorageState', { spy: true });
@@ -29,7 +30,7 @@ describe('GameTick', () => {
 
     beforeEach(() => {
         vi.mocked(useLocalStorageState).mockReturnValue([
-            { bones: 10 },
+            createGameState({ bones: 10 }),
             setLocalStorageState,
             true,
         ]);
@@ -45,7 +46,28 @@ describe('GameTick', () => {
         vi.useRealTimers();
     });
 
-    it('calls useInterval once for a simulated game tick', () => {
+    it('calls useInterval once for a simulated game tick and does not add bones if added == 0', () => {
+        render(<GameTick />);
+
+        expect(useInterval).toHaveBeenCalled();
+        expect(useGameStateDispatch).toHaveBeenCalled();
+        expect(dispatch).not.toHaveBeenCalled();
+
+        // Simulate a gametick
+        act(() => {
+            vi.advanceTimersToNextTimer();
+        });
+
+        expect(dispatch).not.toHaveBeenCalled();
+    });
+
+    it('adds bones based on bone diggers', () => {
+        vi.mocked(useLocalStorageState).mockReturnValue([
+            createGameState({ boneDiggers: 1 }),
+            setLocalStorageState,
+            true,
+        ]);
+
         render(<GameTick />);
 
         expect(useInterval).toHaveBeenCalled();
@@ -58,7 +80,10 @@ describe('GameTick', () => {
         });
 
         expect(dispatch).toHaveBeenCalledWith(
-            expect.objectContaining({ type: 'game_state/add_bones' }),
+            expect.objectContaining({
+                type: 'game_state/add_bones',
+                payload: 0.066,
+            }),
         );
     });
 });

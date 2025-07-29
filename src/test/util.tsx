@@ -4,7 +4,7 @@ import {
     RenderOptions,
 } from '@testing-library/react';
 
-import { GameStateProvider } from '@/components';
+import { GameStateProvider } from '@/state/providers';
 
 const AllProviders = ({
     children,

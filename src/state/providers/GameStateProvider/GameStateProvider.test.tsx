@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
-import { render, screen, act } from '@testing-library/react';
-import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
-import { useInterval, useLocalStorageState } from '@/hooks';
+import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { useLocalStorageState } from '@/hooks';
 import { GameStateProvider } from '@/state/providers';
 import { GameStateContext } from '@/state/context';
 
-vi.mock('@/hooks/useInterval', { spy: true });
 vi.mock('@/hooks/useLocalStorageState', { spy: true });
 
 vi.mock('@/components', () => ({
@@ -18,13 +17,8 @@ describe('GameStateProvider', () => {
         return <div>bones: {state?.bones}</div>;
     };
 
-    beforeEach(() => {
-        vi.useFakeTimers();
-    });
-
     afterEach(() => {
         vi.clearAllMocks();
-        vi.useRealTimers();
     });
 
     it('shows loading if not hydrated', () => {
@@ -59,27 +53,10 @@ describe('GameStateProvider', () => {
         expect(screen.getByText('Child content')).toBeInTheDocument();
     });
 
-    it('calls useInterval for bone accumulation and auto-save', () => {
+    it('provides context to children', () => {
         const setLocalStorageState = vi.fn();
         vi.mocked(useLocalStorageState).mockReturnValue([
-            { bones: 10 },
-            setLocalStorageState,
-            true,
-        ]);
-
-        render(
-            <GameStateProvider>
-                <div>Child</div>
-            </GameStateProvider>,
-        );
-
-        expect(useInterval).toHaveBeenCalledTimes(2);
-    });
-
-    it('provides context to children and simulates single game tick', () => {
-        const setLocalStorageState = vi.fn();
-        vi.mocked(useLocalStorageState).mockReturnValue([
-            { bones: 0 },
+            { bones: 123 },
             setLocalStorageState,
             true,
         ]);
@@ -90,11 +67,6 @@ describe('GameStateProvider', () => {
             </GameStateProvider>,
         );
 
-        act(() => {
-            vi.advanceTimersToNextTimer();
-        });
-
-        expect(useInterval).toHaveBeenCalled();
-        expect(screen.getByText('bones: 0.066')).toBeInTheDocument();
+        expect(screen.getByText('bones: 123')).toBeInTheDocument();
     });
 });

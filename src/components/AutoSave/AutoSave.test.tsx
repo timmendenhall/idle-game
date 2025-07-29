@@ -11,17 +11,15 @@ import {
     afterAll,
 } from 'vitest';
 import { useInterval, useLocalStorageState } from '@/hooks';
-import { useGameStateDispatch } from '@/state/hooks/useGameStateDispatch';
 import { render } from '@/test/util';
-import { GameTick } from '@/components/GameTick';
+import { AutoSave } from '@/components/AutoSave';
 
 vi.mock('@/hooks/useInterval', { spy: true });
 vi.mock('@/hooks/useLocalStorageState', { spy: true });
 vi.mock('@/state/hooks/useGameStateDispatch', { spy: true });
 
-describe('GameTick', () => {
+describe('AutoSave', () => {
     const setLocalStorageState = vi.fn();
-    const dispatch = vi.fn();
 
     beforeAll(() => {
         vi.useFakeTimers();
@@ -33,8 +31,6 @@ describe('GameTick', () => {
             setLocalStorageState,
             true,
         ]);
-
-        vi.mocked(useGameStateDispatch).mockReturnValue(dispatch);
     });
 
     afterEach(() => {
@@ -45,20 +41,17 @@ describe('GameTick', () => {
         vi.useRealTimers();
     });
 
-    it('calls useInterval once for a simulated game tick', () => {
-        render(<GameTick />);
+    it('performs an auto-save to local storage', () => {
+        render(<AutoSave />);
 
         expect(useInterval).toHaveBeenCalled();
-        expect(useGameStateDispatch).toHaveBeenCalled();
-        expect(dispatch).not.toHaveBeenCalled();
+        expect(setLocalStorageState).not.toHaveBeenCalled();
 
-        // Simulate a gametick
+        // Simulate time to auto-save
         act(() => {
             vi.advanceTimersToNextTimer();
         });
 
-        expect(dispatch).toHaveBeenCalledWith(
-            expect.objectContaining({ type: 'game_state/add_bones' }),
-        );
+        expect(setLocalStorageState).toHaveBeenCalled();
     });
 });

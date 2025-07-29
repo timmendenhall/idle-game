@@ -32,9 +32,6 @@ export const TopBar = () => {
             <ResourceDisplay value={bones}>
                 <PiBone />
             </ResourceDisplay>
-            <ResourceDisplay value={bones}>
-                <PiBone />
-            </ResourceDisplay>
         </div>
     );
 };

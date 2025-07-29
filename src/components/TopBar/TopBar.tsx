@@ -3,7 +3,7 @@
 import React from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { PiBone } from 'react-icons/pi';
-import { useGameState } from '@/hooks/useGameState';
+import { useGameState } from '@/state/hooks';
 
 export const TopBar = () => {
     const { bones } = useGameState();

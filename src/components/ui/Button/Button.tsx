@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { twJoin } from 'tailwind-merge';
 
 export type ButtonVariant = 'primary' | 'secondary';
 
@@ -13,10 +14,14 @@ export const Button = ({
     variant = 'primary',
     onClick,
 }: ButtonProps) => {
-    const bg = variant === 'primary' ? 'sky' : 'rose';
     return (
         <button
-            className={`flex w-44 flex-row items-center justify-center rounded-2xl bg-${bg}-700 p-3 hover:bg-${bg}-800 active:bg-${bg}-900`}
+            className={twJoin(
+                'flex w-44 flex-row items-center justify-center rounded-2xl',
+                variant === 'primary'
+                    ? 'bg-sky-700 p-3 hover:bg-sky-800 active:bg-sky-900'
+                    : 'bg-rose-700 p-3 hover:bg-rose-800 active:bg-rose-900',
+            )}
             onClick={onClick}
         >
             {children}

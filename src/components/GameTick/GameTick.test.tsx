@@ -74,7 +74,7 @@ describe('GameTick', () => {
         expect(useGameStateDispatch).toHaveBeenCalled();
         expect(dispatch).not.toHaveBeenCalled();
 
-        // Simulate a gametick
+        // Simulate a game tick
         act(() => {
             vi.advanceTimersToNextTimer();
         });

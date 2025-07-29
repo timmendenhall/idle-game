@@ -1,6 +1,6 @@
 import React from 'react';
-import { GiDinosaurRex } from 'react-icons/gi';
+import { BoneButton } from '@/components/Game/BoneButton';
 
 export const Game = () => {
-    return <GiDinosaurRex />;
+    return <BoneButton />;
 };

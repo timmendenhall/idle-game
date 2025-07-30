@@ -14,13 +14,13 @@ describe('Button', () => {
     it('defaults to primary variant', () => {
         render(<Button>Primary</Button>);
         const btn = screen.getByRole('button', { name: 'Primary' });
-        expect(btn.className).toMatch(/bg-sky-700/);
+        expect(btn.className).toMatch(/bg-primary-800/);
     });
 
     it('uses secondary variant', () => {
         render(<Button variant="secondary">Secondary</Button>);
         const btn = screen.getByRole('button', { name: 'Secondary' });
-        expect(btn.className).toMatch(/bg-rose-700/);
+        expect(btn.className).toMatch(/bg-secondary-800/);
     });
 
     it('calls onClick handler when clicked', async () => {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { BoneButton } from '@/components/Game/BoneButton';
+import { BoneSystemCard } from '@/components/Game/BoneSystemCard/BoneSystemCard';
 
 export const Game = () => {
-    return <BoneButton />;
+    return <BoneSystemCard />;
 };

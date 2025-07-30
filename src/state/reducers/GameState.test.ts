@@ -1,16 +1,33 @@
 import { describe, expect, it } from 'vitest';
 import gameStateReducer, { createGameState } from '@/state/reducers/GameState';
-import { GameStateAction } from '@/state/actions';
+import {
+    addBones,
+    GameStateAction,
+    purchaseBoneDiggers,
+} from '@/state/actions';
 
 describe('gameStateReducer', () => {
     it('adds bones correctly', () => {
         const initialState = createGameState({ bones: 10 });
-        const action: GameStateAction = {
-            type: 'game_state/add_bones',
-            payload: 5,
-        };
+        const action = addBones(5);
         const newState = gameStateReducer(initialState, action);
         expect(newState.bones).toBe(15);
+    });
+
+    it('purchases bone-digger correctly', () => {
+        const initialState = createGameState({ bones: 100 });
+        const action = purchaseBoneDiggers(1);
+        const newState = gameStateReducer(initialState, action);
+        expect(newState.bones).toBe(85);
+        expect(newState.boneDiggers).toBe(1);
+    });
+
+    it('does not purchase bone-digger when cost is too high', () => {
+        const initialState = createGameState({ bones: 1 });
+        const action = purchaseBoneDiggers(1);
+        const newState = gameStateReducer(initialState, action);
+        expect(newState.bones).toBe(1);
+        expect(newState.boneDiggers).toBe(0);
     });
 
     it('uses 0 as fallback if payload is undefined', () => {

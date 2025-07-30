@@ -12,9 +12,8 @@ interface ResourceDisplayProps {
 
 const ResourceDisplay = ({ value, children }: ResourceDisplayProps) => {
     return (
-        <div className="bg-background-700 ml-3 flex flex-row items-center rounded-2xl pr-3">
+        <div className="bg-background-700 flex flex-row items-center rounded-2xl pr-3">
             <div className="bg-background-800 rounded-2xl p-1">{children}</div>
-
             <span className="pl-1">{value.toFixed(2)}</span>
         </div>
     );

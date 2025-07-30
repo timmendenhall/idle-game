@@ -1,12 +1,13 @@
 import React from 'react';
 import { BoneButton } from '@/components/Game';
-import { Heading } from '@/components/ui';
+import { Card } from '@/components/ui';
+import { CardHeading } from '@/components/ui/CardHeading';
 
 export const BoneSystemCard = () => {
     return (
-        <div className="bg-background-900 mx-auto rounded-2xl p-1">
-            <Heading level={3}>Dino-bones</Heading>
+        <Card>
+            <CardHeading>Dino-bones</CardHeading>
             <BoneButton />
-        </div>
+        </Card>
     );
 };

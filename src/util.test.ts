@@ -41,6 +41,6 @@ describe('formatNumber', () => {
 
     it('returns a comma separated for thousands numbers', () => {
         expect(formatNumber(1234.42)).toBe('1,234');
-        expect(formatNumber(12345.42)).toBe('12,2345');
+        expect(formatNumber(12345.42)).toBe('12,345');
     });
 });

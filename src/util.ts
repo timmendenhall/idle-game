@@ -21,5 +21,5 @@ export const getBonesPerClick = (gameState: GameState): number => {
 };
 
 export const formatNumber = (value: number): string => {
-    return Number(value.toFixed(0)).toLocaleString();
+    return Math.floor(value).toLocaleString();
 };

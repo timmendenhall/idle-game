@@ -1,5 +1,6 @@
 import { expect, test } from 'vitest';
-import { screen, render } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import { render } from '@/test/util';
 
 import { Game } from '@/components';
 

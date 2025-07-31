@@ -1,4 +1,4 @@
-import { test, vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { screen } from '@testing-library/react';
 
 import { render } from '@/test/util';
@@ -6,7 +6,7 @@ import { Game } from '@/components/pages';
 
 vi.mock('next/navigation');
 
-test('should render correctly', async () => {
+test('should render correctly', () => {
     render(<Game />);
-    await screen.findByText('0.00');
+    expect(screen.getByTestId('top-bar')).toBeInTheDocument();
 });

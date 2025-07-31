@@ -1,6 +1,6 @@
 import React from 'react';
-import { GiDinosaurRex } from 'react-icons/gi';
+import { BoneSystemCard } from '@/components/Game/BoneSystemCard/BoneSystemCard';
 
 export const Game = () => {
-    return <GiDinosaurRex />;
+    return <BoneSystemCard />;
 };

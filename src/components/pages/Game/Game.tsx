@@ -1,14 +1,17 @@
-import { Game as GameContent, TopBar } from '@/components';
+import { AutoSave, Game as GameContent, GameTick, TopBar } from '@/components';
+import { GameStateProvider } from '@/state/providers';
 
 export const Game = () => {
     return (
-        <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 font-sans">
+        <GameStateProvider>
+            <AutoSave />
+            <GameTick />
             <TopBar />
-            <main className="row-start-2 flex flex-col items-center gap-[32px] sm:items-start">
+            <main className="flex h-full w-full flex-col items-center justify-center gap-[32px]">
                 <GameContent />
             </main>
 
             <footer className="row-start-3 flex flex-wrap items-center justify-center gap-[24px]"></footer>
-        </div>
+        </GameStateProvider>
     );
 };

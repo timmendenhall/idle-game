@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/nextjs-vite';
+import { withGameState } from './decorators/GameStateDecorator';
 
 const preview: Preview = {
     parameters: {
@@ -9,6 +10,7 @@ const preview: Preview = {
             },
         },
     },
+    decorators: [withGameState()],
 };
 
 export default preview;

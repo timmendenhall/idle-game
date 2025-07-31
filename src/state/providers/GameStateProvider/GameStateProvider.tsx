@@ -12,7 +12,15 @@ import { GameStateContext, GameStateDispatchContext } from '@/state/context';
 
 const DEFAULT_STATE: GameState = createGameState();
 
-export const GameStateProvider = ({ children }: { children: ReactNode }) => {
+export interface GameStateProviderProps {
+    initialState?: Partial<GameState>;
+    children: ReactNode;
+}
+
+export const GameStateProvider = ({
+    children,
+    initialState,
+}: GameStateProviderProps) => {
     const [localStorageState, , isHydrated] = useLocalStorageState<GameState>(
         GAME_SAVE_KEY,
         DEFAULT_STATE,
@@ -20,7 +28,7 @@ export const GameStateProvider = ({ children }: { children: ReactNode }) => {
 
     const [gameState, dispatch] = useReducer(
         gameStateReducer,
-        createGameState(localStorageState),
+        createGameState(initialState ?? localStorageState),
     );
 
     if (!isHydrated) {

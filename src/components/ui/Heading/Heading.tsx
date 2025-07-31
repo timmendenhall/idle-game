@@ -1,30 +1,25 @@
-import React, { ReactNode } from 'react';
+import React, { JSX, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export interface HeadingProps {
     children?: ReactNode;
-    level?: number;
+    level?: 1 | 2 | 3 | 4;
     className?: string;
 }
 
-export const Heading = ({ children, className, level = 1 }: HeadingProps) => {
-    switch (level) {
-        case 2:
-            return (
-                <h2 className={twMerge('text-6xl', className)}>{children}</h2>
-            );
-        case 3:
-            return (
-                <h3 className={twMerge('text-4xl', className)}>{children}</h3>
-            );
-        case 4:
-            return (
-                <h4 className={twMerge('text-2xl', className)}>{children}</h4>
-            );
-        case 1:
-        default:
-            return (
-                <h1 className={twMerge('text-7xl', className)}>{children}</h1>
-            );
-    }
+const levelClassMap = {
+    1: 'text-7xl',
+    2: 'text-6xl',
+    3: 'text-4xl',
+    4: 'text-2xl',
+};
+
+export const Heading = ({ children, level = 1, className }: HeadingProps) => {
+    const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+    const mergedClass = twMerge(
+        levelClassMap[level] || levelClassMap[1],
+        className,
+    );
+
+    return <Tag className={mergedClass}>{children}</Tag>;
 };

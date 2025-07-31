@@ -1,4 +1,5 @@
 import { BASE_BONE_COST_BONE_DIGGER } from '@/constants';
+import { GameState } from '@/state/reducers';
 
 export const getBoneDiggerCost = (
     currentBoneDiggers: number,
@@ -13,4 +14,8 @@ export const getBoneDiggerCost = (
         totalCost += cost;
     }
     return totalCost;
+};
+
+export const getBonesPerClick = (gameState: GameState): number => {
+    return 1 + gameState.boneDiggers;
 };

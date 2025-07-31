@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getBoneDiggerCost } from './util';
+import { getBoneDiggerCost, getBonesPerClick } from './util';
 import { BASE_BONE_COST_BONE_DIGGER } from '@/constants';
 
 describe('getBoneDiggerCost', () => {
@@ -21,5 +21,15 @@ describe('getBoneDiggerCost', () => {
     it('calculates cost of buying 2 diggers with 4 owned', () => {
         const result = getBoneDiggerCost(4, 2);
         expect(result).toBe(178);
+    });
+});
+
+describe('getBonesPerClick', () => {
+    it('returns 1 when no bone diggers', () => {
+        expect(getBonesPerClick({ boneDiggers: 0, bones: 0 })).toBe(1);
+    });
+
+    it('returns 1 + boneDiggers', () => {
+        expect(getBonesPerClick({ boneDiggers: 5, bones: 0 })).toBe(6);
     });
 });

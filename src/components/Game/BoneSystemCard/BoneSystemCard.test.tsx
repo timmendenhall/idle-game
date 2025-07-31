@@ -16,9 +16,11 @@ vi.mock('@/state/hooks', () => ({
     useGameStateDispatch: vi.fn(),
 }));
 
-vi.mock('@/util', () => ({
-    getBoneDiggerCost: vi.fn(),
-}));
+vi.mock('@/util', async () => {
+    const originalModule = await vi.importActual('@/util');
+
+    return { ...originalModule, getBoneDiggerCost: vi.fn() };
+});
 
 vi.mock('@/state/actions', () => ({
     purchaseBoneDiggers: vi.fn(),
@@ -48,7 +50,7 @@ describe('<BoneSystemCard />', () => {
 
         // Text assertions
         expect(screen.getByText(/Bones:/)).toHaveTextContent(
-            `Bones: ${mockBones.toFixed(2)}`,
+            `Bones: ${mockBones}`,
         );
         expect(screen.getByText(/Bone-diggers:/)).toHaveTextContent(
             `Bone-diggers: ${mockBoneDiggers} (${mockBonesPerSecond} bones/ sec)`,

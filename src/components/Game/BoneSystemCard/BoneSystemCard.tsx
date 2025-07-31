@@ -7,7 +7,7 @@ import { BoneButton } from '@/components/Game';
 import { Button, Card } from '@/components/ui';
 import { CardHeading } from '@/components/ui/CardHeading';
 import { useGameState, useGameStateDispatch } from '@/state/hooks';
-import { getBoneDiggerCost } from '@/util';
+import { formatNumber, getBoneDiggerCost } from '@/util';
 import { purchaseBoneDiggers } from '@/state/actions';
 import { BASE_BONES_PER_SECOND_PER_DIGGER } from '@/constants';
 
@@ -37,10 +37,10 @@ export const BoneSystemCard = () => {
                     <span className="pl-1">Dino-bones</span>
                 </div>
             </CardHeading>
-            <div className="">Bones: {bones.toFixed(2)}</div>
+            <div className="">Bones: {formatNumber(bones)}</div>
             <div className="">
-                Bone-diggers: {boneDiggers} ({bonesPerSecondFromDiggers} bones/
-                sec)
+                Bone-diggers: {boneDiggers} (
+                {formatNumber(bonesPerSecondFromDiggers)} bones/ sec)
             </div>
             <BoneButton />
             <Button
@@ -48,7 +48,7 @@ export const BoneSystemCard = () => {
                 disabled={!canAffordBoneDigger}
             >
                 Buy Bone-digger <PiBone />
-                {boneDiggerCost}
+                {formatNumber(boneDiggerCost)}
             </Button>
         </Card>
     );

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getBoneDiggerCost, getBonesPerClick } from './util';
+import { formatNumber, getBoneDiggerCost, getBonesPerClick } from './util';
 import { BASE_BONE_COST_BONE_DIGGER } from '@/constants';
 
 describe('getBoneDiggerCost', () => {
@@ -31,5 +31,16 @@ describe('getBonesPerClick', () => {
 
     it('returns 1 + boneDiggers', () => {
         expect(getBonesPerClick({ boneDiggers: 5, bones: 0 })).toBe(6);
+    });
+});
+
+describe('formatNumber', () => {
+    it('returns a whole number only', () => {
+        expect(formatNumber(123.45)).toBe('123');
+    });
+
+    it('returns a comma separated for thousands numbers', () => {
+        expect(formatNumber(1234.42)).toBe('1,234');
+        expect(formatNumber(12345.42)).toBe('12,2345');
     });
 });

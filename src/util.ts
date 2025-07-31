@@ -19,3 +19,7 @@ export const getBoneDiggerCost = (
 export const getBonesPerClick = (gameState: GameState): number => {
     return 1 + gameState.boneDiggers;
 };
+
+export const formatNumber = (value: number): string => {
+    return Number(value.toFixed(0)).toLocaleString();
+};

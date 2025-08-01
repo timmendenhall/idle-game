@@ -5,7 +5,7 @@ import { withGameState } from '@/../.storybook/decorators/GameStateDecorator';
 
 const meta = {
     component: TopBar,
-    title: 'TopBar',
+    title: 'Components/TopBar',
     decorators: [withGameState({ bones: 42 })],
 } satisfies Meta<typeof TopBar>;
 

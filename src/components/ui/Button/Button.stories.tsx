@@ -5,7 +5,7 @@ import { Button } from './Button';
 
 const meta = {
     component: Button,
-    title: 'Button',
+    title: 'Components/UI/Button',
     args: {
         children: 'Test button',
         onClick: fn(),

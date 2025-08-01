@@ -6,12 +6,13 @@ export const Game = () => {
         <GameStateProvider>
             <AutoSave />
             <GameTick />
-            <TopBar />
-            <main className="flex h-full w-full flex-col items-center justify-center gap-[32px]">
-                <GameContent />
-            </main>
-
-            <footer className="row-start-3 flex flex-wrap items-center justify-center gap-[24px]"></footer>
+            <div className="flex min-h-screen flex-col">
+                <TopBar />
+                <main className="flex flex-1 flex-col items-center justify-center">
+                    <GameContent />
+                </main>
+                <footer className="flex flex-wrap items-center justify-center"></footer>
+            </div>
         </GameStateProvider>
     );
 };

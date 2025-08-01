@@ -5,11 +5,9 @@ import { LinkButton, Heading } from '@/components/ui';
 
 export const Home = () => {
     return (
-        <div>
-            <div className="flex min-h-screen flex-col items-center justify-center gap-3">
-                <Heading>Idle Game</Heading>
-                <LinkButton href={Routes.GAME}>Play</LinkButton>
-            </div>
+        <div className="flex min-h-screen flex-col items-center justify-center gap-3">
+            <Heading>Idle Game</Heading>
+            <LinkButton href={Routes.GAME}>Play</LinkButton>
         </div>
     );
 };

@@ -6,9 +6,9 @@ export default defineConfig({
     plugins: [tsconfigPaths(), react()],
     test: {
         coverage: {
-            enabled: false,
-            include: ['**'],
-            exclude: ['.storybook/**', '**.stories.tsx'],
+            enabled: true,
+            include: ['src/**'],
+            exclude: ['**/*.stories.*', '**/*.test.*'],
             thresholds: {
                 functions: 95,
                 branches: 88,

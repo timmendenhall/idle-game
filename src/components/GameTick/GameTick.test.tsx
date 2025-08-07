@@ -14,7 +14,7 @@ import { useInterval, useLocalStorageState } from '@/hooks';
 import { useGameStateDispatch } from '@/state/hooks/useGameStateDispatch';
 import { render } from '@/test/util';
 import { GameTick } from '@/components/GameTick';
-import { createGameState } from '@/state/reducers';
+import { createGameState } from '@/state/util';
 
 vi.mock('@/hooks/useInterval', { spy: true });
 vi.mock('@/hooks/useLocalStorageState', { spy: true });

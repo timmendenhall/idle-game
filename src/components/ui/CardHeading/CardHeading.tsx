@@ -6,5 +6,9 @@ export interface CardHeadingProps {
 }
 
 export const CardHeading = ({ children }: CardHeadingProps) => {
-    return <Heading level={3}>{children}</Heading>;
+    return (
+        <Heading level={3} className="w-full">
+            {children}
+        </Heading>
+    );
 };

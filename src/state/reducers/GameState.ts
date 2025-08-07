@@ -1,28 +1,6 @@
 import { GameStateAction } from '@/state/actions';
 import { getBoneDiggerCost } from '@/util';
-
-export interface GameState {
-    bones: number;
-    boneDiggers: number;
-    isDinoAlive: boolean;
-    strength: number;
-    vitality: number;
-    dexterity: number;
-    intelligence: number;
-}
-
-export const createGameState = (
-    defaultStateOverrides: Partial<GameState> = {},
-): GameState => ({
-    bones: 0,
-    boneDiggers: 0,
-    isDinoAlive: false,
-    strength: 5,
-    vitality: 5,
-    dexterity: 5,
-    intelligence: 5,
-    ...defaultStateOverrides,
-});
+import { GameState } from '@/state/types';
 
 export default function gameStateReducer(
     prevState: GameState,

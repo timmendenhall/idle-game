@@ -6,7 +6,7 @@ import { useGameState, useGameStateDispatch } from '@/state/hooks';
 import { getBoneDiggerCost } from '@/util';
 import { purchaseBoneDiggers } from '@/state/actions';
 import { BoneSystemCard } from '@/components/Game/BoneSystemCard';
-import { createGameState } from '@/state/reducers';
+import { createGameState } from '@/state/util';
 
 vi.mock('@/components/Game', () => ({
     BoneButton: () => <div>MockBoneButton</div>,

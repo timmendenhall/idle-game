@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import gameStateReducer, { createGameState } from '@/state/reducers/GameState';
+import gameStateReducer from '@/state/reducers/GameState';
 import {
     addBones,
     GameStateAction,
     purchaseBoneDiggers,
 } from '@/state/actions';
+import { createGameState } from '@/state/util';
 
 describe('gameStateReducer', () => {
     it('adds bones correctly', () => {

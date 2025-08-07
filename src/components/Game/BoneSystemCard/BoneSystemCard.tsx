@@ -28,7 +28,7 @@ export const BoneSystemCard = () => {
     }, [canAffordBoneDigger, dispatch]);
 
     return (
-        <Card>
+        <Card className="w-xs">
             <CardHeading>
                 <div className="bg-background-700 flex flex-row items-center rounded-2xl pr-3">
                     <div className="bg-background-800 rounded-2xl p-1">

@@ -6,6 +6,7 @@ import { useGameState, useGameStateDispatch } from '@/state/hooks';
 import { getBoneDiggerCost } from '@/util';
 import { purchaseBoneDiggers } from '@/state/actions';
 import { BoneSystemCard } from '@/components/Game/BoneSystemCard';
+import { createGameState } from '@/state/reducers';
 
 vi.mock('@/components/Game', () => ({
     BoneButton: () => <div>MockBoneButton</div>,
@@ -34,10 +35,12 @@ describe('<BoneSystemCard />', () => {
         const mockCost = 50;
         const mockBonesPerSecond = mockBoneDiggers;
 
-        vi.mocked(useGameState).mockReturnValue({
-            bones: mockBones,
-            boneDiggers: mockBoneDiggers,
-        });
+        vi.mocked(useGameState).mockReturnValue(
+            createGameState({
+                bones: mockBones,
+                boneDiggers: mockBoneDiggers,
+            }),
+        );
 
         vi.mocked(useGameStateDispatch).mockReturnValue(mockDispatch);
         vi.mocked(getBoneDiggerCost).mockReturnValue(mockCost);
@@ -73,10 +76,12 @@ describe('<BoneSystemCard />', () => {
     });
 
     it('disables buy button if not enough bones', () => {
-        vi.mocked(useGameState).mockReturnValue({
-            bones: 10,
-            boneDiggers: 2,
-        });
+        vi.mocked(useGameState).mockReturnValue(
+            createGameState({
+                bones: 10,
+                boneDiggers: 2,
+            }),
+        );
 
         vi.mocked(useGameStateDispatch).mockReturnValue(vi.fn());
         vi.mocked(getBoneDiggerCost).mockReturnValue(50);

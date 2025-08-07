@@ -26,7 +26,7 @@ describe('getBoneDiggerCost', () => {
 
 describe('getBonesPerClick', () => {
     it('returns 1 when no bone diggers', () => {
-        expect(getBonesPerClick({ boneDiggers: 0, bones: 0 })).toBe(1);
+        expect(getBonesPerClick({ boneDiggers: 0 })).toBe(1);
     });
 
     it('returns 1 + boneDiggers', () => {

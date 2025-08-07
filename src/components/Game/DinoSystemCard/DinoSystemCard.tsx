@@ -3,10 +3,10 @@
 import React, { useCallback } from 'react';
 import { GiDinosaurRex } from 'react-icons/gi';
 
-import { Button, Card, Heading } from '@/components/ui';
-import { CardHeading } from '@/components/ui/CardHeading';
+import { Button, Heading } from '@/components/ui';
 import { useGameState, useGameStateDispatch } from '@/state/hooks';
 import { purchaseBoneDiggers } from '@/state/actions';
+import { GameCard } from '@/components/Game/GameCard';
 
 export const AttributeRow = ({
     name,
@@ -38,15 +38,7 @@ export const DinoSystemCard = () => {
     }, [canAffordDino, dispatch]);
 
     return (
-        <Card className="w-xs">
-            <CardHeading>
-                <div className="bg-background-700 flex flex-row items-center rounded-2xl pr-3">
-                    <div className="bg-background-800 rounded-2xl p-1">
-                        <GiDinosaurRex />
-                    </div>
-                    <span className="pl-1">Build-a-Dino</span>
-                </div>
-            </CardHeading>
+        <GameCard icon={<GiDinosaurRex />} title="Build-a-Dino">
             {!isDinoAlive && (
                 <Button
                     onClick={handleGrowDinosaurClicked}
@@ -59,6 +51,6 @@ export const DinoSystemCard = () => {
                 <Heading level={4}>Attributes</Heading>
                 <AttributeRow name="test" value={1} />
             </div>
-        </Card>
+        </GameCard>
     );
 };

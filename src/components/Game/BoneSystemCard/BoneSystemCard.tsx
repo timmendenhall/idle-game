@@ -4,12 +4,12 @@ import React, { useCallback } from 'react';
 import { PiBone } from 'react-icons/pi';
 
 import { BoneButton } from '@/components/Game';
-import { Button, Card } from '@/components/ui';
-import { CardHeading } from '@/components/ui/CardHeading';
+import { Button } from '@/components/ui';
 import { useGameState, useGameStateDispatch } from '@/state/hooks';
 import { formatNumber, getBoneDiggerCost } from '@/util';
 import { purchaseBoneDiggers } from '@/state/actions';
 import { BASE_BONES_PER_SECOND_PER_DIGGER } from '@/constants';
+import { GameCard } from '@/components/Game/GameCard';
 
 export const BoneSystemCard = () => {
     const { bones, boneDiggers } = useGameState();
@@ -28,15 +28,7 @@ export const BoneSystemCard = () => {
     }, [canAffordBoneDigger, dispatch]);
 
     return (
-        <Card className="w-xs">
-            <CardHeading>
-                <div className="bg-background-700 flex flex-row items-center rounded-2xl pr-3">
-                    <div className="bg-background-800 rounded-2xl p-1">
-                        <PiBone />
-                    </div>
-                    <span className="pl-1">Dino-bones</span>
-                </div>
-            </CardHeading>
+        <GameCard icon={<PiBone />} title="Dino-bones">
             <div className="">Bones: {formatNumber(bones)}</div>
             <div className="">
                 Bone-diggers: {boneDiggers} (
@@ -50,6 +42,6 @@ export const BoneSystemCard = () => {
                 Buy Bone-digger <PiBone />
                 {formatNumber(boneDiggerCost)}
             </Button>
-        </Card>
+        </GameCard>
     );
 };

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ButtonVariant } from '@/components/ui';
 import { getButtonClass } from '@/components/ui/util';
 
-export interface ButtonProps {
+export interface LinkButtonProps {
     children?: ReactNode;
     variant?: ButtonVariant;
     href: string;
@@ -16,7 +16,7 @@ export const LinkButton = ({
     variant = 'primary',
     href,
     className,
-}: ButtonProps) => {
+}: LinkButtonProps) => {
     return (
         <Link className={getButtonClass(variant, className)} href={href}>
             {children}

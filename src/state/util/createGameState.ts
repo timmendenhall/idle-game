@@ -5,10 +5,7 @@ export const createGameState = (
 ): GameState => ({
     bones: 0,
     boneDiggers: 0,
-    isDinoAlive: false,
-    strength: 5,
-    vitality: 5,
-    dexterity: 5,
-    intelligence: 5,
+    dinos: [],
+    maxDinos: 1,
     ...defaultStateOverrides,
 });

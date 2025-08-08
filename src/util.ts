@@ -1,5 +1,5 @@
 import { BASE_BONE_COST_BONE_DIGGER } from '@/constants';
-import { GameState } from '@/state/reducers';
+import { GameState } from '@/state/types';
 
 export const getBoneDiggerCost = (
     currentBoneDiggers: number,
@@ -20,6 +20,10 @@ export const getBonesPerClick = (
     gameState: RequireOnly<GameState, 'boneDiggers'>,
 ): number => {
     return 1 + gameState.boneDiggers;
+};
+
+export const getDinoCost = (gameState: RequireOnly<GameState, 'dinos'>) => {
+    return 5000 * gameState.dinos.length + 1000;
 };
 
 export const formatNumber = (value: number): string => {

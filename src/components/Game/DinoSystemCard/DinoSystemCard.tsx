@@ -7,6 +7,7 @@ import { Button, Heading } from '@/components/ui';
 import { useGameState, useGameStateDispatch } from '@/state/hooks';
 import { purchaseBoneDiggers } from '@/state/actions';
 import { GameCard } from '@/components/Game/GameCard';
+import { getDinoCost } from '@/util';
 
 export const AttributeRow = ({
     name,
@@ -26,27 +27,31 @@ export const AttributeRow = ({
 
 export const DinoSystemCard = () => {
     const dispatch = useGameStateDispatch();
-    const { isDinoAlive } = useGameState();
+    const gameState = useGameState();
+    const { bones, maxDinos, dinos } = gameState;
 
-    const canAffordDino = false;
+    const canAffordDino = bones >= getDinoCost(gameState);
+    const hasDinoCapacity = maxDinos > dinos.length;
+    const canBuildDino = canAffordDino && hasDinoCapacity;
 
     const handleGrowDinosaurClicked = useCallback(() => {
-        if (!canAffordDino) {
+        if (!canBuildDino) {
             return;
         }
         dispatch(purchaseBoneDiggers());
-    }, [canAffordDino, dispatch]);
+    }, [canBuildDino, dispatch]);
 
     return (
         <GameCard icon={<GiDinosaurRex />} title="Build-a-Dino">
-            {!isDinoAlive && (
-                <Button
-                    onClick={handleGrowDinosaurClicked}
-                    disabled={!canAffordDino}
-                >
-                    Build Dinosaur
-                </Button>
-            )}
+            <div>
+                Capacity: {dinos.length} {' / '} {maxDinos}
+            </div>
+            <Button
+                onClick={handleGrowDinosaurClicked}
+                disabled={!canBuildDino}
+            >
+                Build Dinosaur
+            </Button>
             <div className="bg-background-800 flex flex-col items-center rounded-xl p-2">
                 <Heading level={4}>Attributes</Heading>
                 <AttributeRow name="test" value={1} />

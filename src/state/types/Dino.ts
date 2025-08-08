@@ -1,5 +1,11 @@
+export enum DinoType {
+    Raptor,
+    Tyrannosaurus,
+}
+
 export type Dino = {
-    id: string;
+    type: DinoType;
+    alive: boolean;
     name: string;
     health: number;
     maxHealth: number;

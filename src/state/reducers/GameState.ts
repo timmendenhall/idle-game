@@ -1,6 +1,7 @@
 import { GameStateAction } from '@/state/actions';
-import { getBoneDiggerCost } from '@/util';
+import { getBoneDiggerCost, getDinoCost } from '@/util';
 import { GameState } from '@/state/types';
+import { createDino } from '@/state/util/createDino';
 
 export default function gameStateReducer(
     prevState: GameState,
@@ -14,10 +15,7 @@ export default function gameStateReducer(
             };
         }
         case 'game_state/purchase_bone_digger': {
-            const cost = getBoneDiggerCost(
-                prevState.boneDiggers,
-                action.payload,
-            );
+            const cost = getBoneDiggerCost(prevState, action.payload);
             if (cost > prevState.bones) {
                 return {
                     ...prevState,
@@ -27,6 +25,22 @@ export default function gameStateReducer(
                 ...prevState,
                 bones: prevState.bones - cost,
                 boneDiggers: prevState.boneDiggers + (action.payload ?? 0),
+            };
+        }
+        case 'game_state/build_dino': {
+            const cost = getDinoCost(prevState);
+            if (
+                cost > prevState.bones ||
+                prevState.dinos.length >= prevState.maxDinos
+            ) {
+                return {
+                    ...prevState,
+                };
+            }
+            return {
+                ...prevState,
+                bones: prevState.bones - cost,
+                dinos: [...prevState.dinos, createDino()],
             };
         }
         default: {

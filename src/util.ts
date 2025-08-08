@@ -2,14 +2,14 @@ import { BASE_BONE_COST_BONE_DIGGER } from '@/constants';
 import { GameState } from '@/state/types';
 
 export const getBoneDiggerCost = (
-    currentBoneDiggers: number,
+    gameState: RequireOnly<GameState, 'boneDiggers'>,
     quantity: number = 1,
 ) => {
     let totalCost = 0;
     for (let i = 0; i < quantity; i++) {
         const cost =
             Math.floor(
-                (currentBoneDiggers + i) * BASE_BONE_COST_BONE_DIGGER * 1.1,
+                (gameState.boneDiggers + i) * BASE_BONE_COST_BONE_DIGGER * 1.1,
             ) + BASE_BONE_COST_BONE_DIGGER;
         totalCost += cost;
     }

@@ -12,10 +12,11 @@ import { BASE_BONES_PER_SECOND_PER_DIGGER } from '@/constants';
 import { GameCard } from '@/components/Game/GameCard';
 
 export const BoneSystemCard = () => {
-    const { bones, boneDiggers } = useGameState();
+    const gameState = useGameState();
+    const { bones, boneDiggers } = gameState;
     const dispatch = useGameStateDispatch();
 
-    const boneDiggerCost = getBoneDiggerCost(boneDiggers);
+    const boneDiggerCost = getBoneDiggerCost(gameState);
     const canAffordBoneDigger = bones >= boneDiggerCost;
     const bonesPerSecondFromDiggers =
         boneDiggers * BASE_BONES_PER_SECOND_PER_DIGGER;

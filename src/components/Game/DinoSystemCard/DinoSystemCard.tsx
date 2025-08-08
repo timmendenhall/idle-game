@@ -5,7 +5,7 @@ import { GiDinosaurRex } from 'react-icons/gi';
 
 import { Button, Heading } from '@/components/ui';
 import { useGameState, useGameStateDispatch } from '@/state/hooks';
-import { purchaseBoneDiggers } from '@/state/actions';
+import { buildDino } from '@/state/actions';
 import { GameCard } from '@/components/Game/GameCard';
 import { getDinoCost } from '@/util';
 
@@ -38,7 +38,7 @@ export const DinoSystemCard = () => {
         if (!canBuildDino) {
             return;
         }
-        dispatch(purchaseBoneDiggers());
+        dispatch(buildDino());
     }, [canBuildDino, dispatch]);
 
     return (

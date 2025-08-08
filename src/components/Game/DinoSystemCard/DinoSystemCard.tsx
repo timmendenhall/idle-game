@@ -3,12 +3,14 @@
 import React, { useCallback } from 'react';
 import { GiDinosaurRex } from 'react-icons/gi';
 
-import { Button, Heading, Tooltip } from '@/components/ui';
+import { Heading, Tooltip } from '@/components/ui';
 import { useGameState, useGameStateDispatch } from '@/state/hooks';
 import { buildDino } from '@/state/actions';
 import { GameCard } from '@/components/Game/GameCard';
-import { getDinoCost } from '@/util';
+import { formatNumber, getDinoCost } from '@/util';
 import { Dino } from '@/state/types';
+import { PiBone } from 'react-icons/pi';
+import { PriceButton } from '@/components';
 
 export const AttributeRow = ({
     name,
@@ -57,7 +59,8 @@ export const DinoSystemCard = () => {
     const gameState = useGameState();
     const { bones, maxDinos, dinos } = gameState;
 
-    const canAffordDino = bones >= getDinoCost(gameState);
+    const dinoCost = getDinoCost(gameState);
+    const canAffordDino = bones >= dinoCost;
     const hasDinoCapacity = maxDinos > dinos.length;
     const canBuildDino = canAffordDino && hasDinoCapacity;
 
@@ -70,12 +73,13 @@ export const DinoSystemCard = () => {
             <div>
                 Capacity: {dinos.length} {' / '} {maxDinos}
             </div>
-            <Button
+            <PriceButton
+                icon={<PiBone />}
+                price={formatNumber(dinoCost)}
+                text="Build Dinosaur"
                 onClick={handleGrowDinosaurClicked}
                 disabled={!canBuildDino}
-            >
-                Build Dinosaur
-            </Button>
+            />
             <div className="bg-background-800 flex w-11/12 flex-col items-center gap-y-2 rounded-xl p-2">
                 <Heading level={4}>Dinos</Heading>
                 <div className="flex flex-row flex-wrap gap-2">

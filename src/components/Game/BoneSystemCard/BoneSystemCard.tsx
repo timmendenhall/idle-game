@@ -22,11 +22,8 @@ export const BoneSystemCard = () => {
         boneDiggers * BASE_BONES_PER_SECOND_PER_DIGGER;
 
     const handlePurchaseBoneDiggers = useCallback(() => {
-        if (!canAffordBoneDigger) {
-            return;
-        }
         dispatch(purchaseBoneDiggers());
-    }, [canAffordBoneDigger, dispatch]);
+    }, [dispatch]);
 
     return (
         <GameCard icon={<PiBone />} title="Dino-bones">

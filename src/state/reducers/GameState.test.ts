@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import gameStateReducer from '@/state/reducers/GameState';
+import { gameStateReducer } from '@/state/reducers';
 import {
     addBones,
+    buildDino,
     GameStateAction,
     purchaseBoneDiggers,
 } from '@/state/actions';
@@ -45,20 +46,20 @@ describe('gameStateReducer', () => {
             /Unknown action: unknown/,
         );
     });
-});
 
-describe('createGameState', () => {
-    it('creates a default state', () => {
-        const state = createGameState();
-        expect(state).toEqual(
-            expect.objectContaining({ bones: 0, boneDiggers: 0 }),
-        );
+    it('buildDino builds correctly', () => {
+        const initialState = createGameState({ bones: 10000 });
+        expect(initialState.dinos.length).toBe(0);
+        const action = buildDino();
+        const newState = gameStateReducer(initialState, action);
+        expect(newState.dinos.length).toBe(1);
     });
 
-    it('creates a state with overrides', () => {
-        const state = createGameState({ bones: 42, boneDiggers: 123 });
-        expect(state).toEqual(
-            expect.objectContaining({ bones: 42, boneDiggers: 123 }),
-        );
+    it('buildDino fails when can not afford', () => {
+        const initialState = createGameState({ bones: 0 });
+        expect(initialState.dinos.length).toBe(0);
+        const action = buildDino();
+        const newState = gameStateReducer(initialState, action);
+        expect(newState.dinos.length).toBe(0);
     });
 });

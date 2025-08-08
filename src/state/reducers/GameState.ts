@@ -3,10 +3,10 @@ import { getBoneDiggerCost, getDinoCost } from '@/util';
 import { GameState } from '@/state/types';
 import { createDino } from '@/state/util/createDino';
 
-export default function gameStateReducer(
+export const gameStateReducer = (
     prevState: GameState,
     action: GameStateAction,
-) {
+) => {
     switch (action.type) {
         case 'game_state/add_bones': {
             return {
@@ -47,4 +47,4 @@ export default function gameStateReducer(
             throw Error('Unknown action: ' + action.type);
         }
     }
-}
+};

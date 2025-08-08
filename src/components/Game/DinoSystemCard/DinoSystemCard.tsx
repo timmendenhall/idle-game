@@ -35,11 +35,8 @@ export const DinoSystemCard = () => {
     const canBuildDino = canAffordDino && hasDinoCapacity;
 
     const handleGrowDinosaurClicked = useCallback(() => {
-        if (!canBuildDino) {
-            return;
-        }
         dispatch(buildDino());
-    }, [canBuildDino, dispatch]);
+    }, [dispatch]);
 
     return (
         <GameCard icon={<GiDinosaurRex />} title="Build-a-Dino">

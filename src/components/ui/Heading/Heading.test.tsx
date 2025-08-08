@@ -10,6 +10,14 @@ describe('<Heading />', () => {
         expect(heading).toHaveClass('text-7xl');
     });
 
+    it('renders h1 when a non-valid level is passed in', () => {
+        // @ts-expect-error invalid level purposely sent
+        render(<Heading level={42}>Hello</Heading>);
+        const heading = screen.getByText('Hello');
+        expect(heading.tagName).toBe('H1');
+        expect(heading).toHaveClass('text-7xl');
+    });
+
     it('renders h2 when level=2', () => {
         render(<Heading level={2}>Heading 2</Heading>);
         const heading = screen.getByText('Heading 2');

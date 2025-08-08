@@ -4,7 +4,7 @@ import { useGameState } from '@/state/hooks';
 import { useInterval } from '@/hooks/useInterval';
 import { useLocalStorageState } from '@/hooks/useLocalStorageState';
 import { GAME_SAVE_KEY, DEFAULT_AUTO_SAVE_DELAY } from '@/constants';
-import { GameState } from '@/state/reducers/GameState';
+import { GameState } from '@/state/types';
 
 export interface AutoSaveProps {
     delay?: number;

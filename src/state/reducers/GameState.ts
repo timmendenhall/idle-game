@@ -1,23 +1,12 @@
 import { GameStateAction } from '@/state/actions';
-import { getBoneDiggerCost } from '@/util';
+import { getBoneDiggerCost, getDinoCost } from '@/util';
+import { GameState } from '@/state/types';
+import { createDino } from '@/state/util/createDino';
 
-export interface GameState {
-    bones: number;
-    boneDiggers: number;
-}
-
-export const createGameState = (
-    defaultStateOverrides: Partial<GameState> = {},
-): GameState => ({
-    bones: 0,
-    boneDiggers: 0,
-    ...defaultStateOverrides,
-});
-
-export default function gameStateReducer(
+export const gameStateReducer = (
     prevState: GameState,
     action: GameStateAction,
-) {
+) => {
     switch (action.type) {
         case 'game_state/add_bones': {
             return {
@@ -26,10 +15,7 @@ export default function gameStateReducer(
             };
         }
         case 'game_state/purchase_bone_digger': {
-            const cost = getBoneDiggerCost(
-                prevState.boneDiggers,
-                action.payload,
-            );
+            const cost = getBoneDiggerCost(prevState, action.payload);
             if (cost > prevState.bones) {
                 return {
                     ...prevState,
@@ -41,8 +27,24 @@ export default function gameStateReducer(
                 boneDiggers: prevState.boneDiggers + (action.payload ?? 0),
             };
         }
+        case 'game_state/build_dino': {
+            const cost = getDinoCost(prevState);
+            if (
+                cost > prevState.bones ||
+                prevState.dinos.length >= prevState.maxDinos
+            ) {
+                return {
+                    ...prevState,
+                };
+            }
+            return {
+                ...prevState,
+                bones: prevState.bones - cost,
+                dinos: [...prevState.dinos, createDino()],
+            };
+        }
         default: {
             throw Error('Unknown action: ' + action.type);
         }
     }
-}
+};

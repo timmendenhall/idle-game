@@ -4,11 +4,10 @@ import React, { ReactNode, useReducer } from 'react';
 import { GAME_SAVE_KEY } from '@/constants';
 import { useLocalStorageState } from '@/hooks/useLocalStorageState';
 import { LoadingIndicator } from '@/components';
-import gameStateReducer, {
-    createGameState,
-    GameState,
-} from '@/state/reducers/GameState';
+import { gameStateReducer } from '@/state/reducers';
 import { GameStateContext, GameStateDispatchContext } from '@/state/context';
+import { GameState } from '@/state/types';
+import { createGameState } from '@/state/util';
 
 const DEFAULT_STATE: GameState = createGameState();
 

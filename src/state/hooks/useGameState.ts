@@ -2,7 +2,7 @@
 
 import { useContext } from 'react';
 import { GameStateContext } from '@/state/context';
-import { GameState } from '@/state/reducers/GameState';
+import { GameState } from '@/state/types';
 
 export const useGameState = (): GameState => {
     const context = useContext(GameStateContext);

@@ -8,12 +8,12 @@ export default defineConfig({
         coverage: {
             enabled: true,
             include: ['src/**'],
-            exclude: ['**/*.stories.*', '**/*.test.*'],
+            exclude: ['**/*.stories.*', '**/*.test.*', 'src/app/**'],
             thresholds: {
                 functions: 95,
-                branches: 88,
-                statements: 90,
-                lines: 90,
+                branches: 93,
+                statements: 95,
+                lines: 95,
             },
         },
         globals: true,

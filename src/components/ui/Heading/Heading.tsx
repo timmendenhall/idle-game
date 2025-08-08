@@ -15,7 +15,8 @@ const levelClassMap = {
 };
 
 export const Heading = ({ children, level = 1, className }: HeadingProps) => {
-    const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+    const updated_level = levelClassMap[level] ? level : 1;
+    const Tag = `h${updated_level}` as keyof JSX.IntrinsicElements;
     const mergedClass = twMerge(
         levelClassMap[level] || levelClassMap[1],
         className,

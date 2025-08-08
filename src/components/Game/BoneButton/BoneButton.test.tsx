@@ -6,7 +6,7 @@ import { BoneButton } from './BoneButton';
 import { useGameState, useGameStateDispatch } from '@/state/hooks';
 import { getBonesPerClick } from '@/util';
 import { addBones } from '@/state/actions';
-import { createGameState } from '@/state/reducers';
+import { createGameState } from '@/state/util';
 
 // Mock dependencies
 vi.mock('@/state/hooks', { spy: true });

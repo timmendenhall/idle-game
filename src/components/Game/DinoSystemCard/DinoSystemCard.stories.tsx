@@ -6,7 +6,7 @@ import { createDino } from '@/state/util/createDino';
 
 const meta = {
     component: DinoSystemCard,
-    title: 'Components/DinoSystemCard',
+    title: 'Components/Game/DinoSystemCard',
 } satisfies Meta<typeof DinoSystemCard>;
 
 export default meta;

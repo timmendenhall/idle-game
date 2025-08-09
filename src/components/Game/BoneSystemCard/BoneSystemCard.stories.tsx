@@ -4,7 +4,7 @@ import { BoneSystemCard } from '@/components';
 
 const meta = {
     component: BoneSystemCard,
-    title: 'Components/BoneSystemCard',
+    title: 'Components/Game/BoneSystemCard',
 } satisfies Meta<typeof BoneSystemCard>;
 
 export default meta;

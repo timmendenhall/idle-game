@@ -12,21 +12,21 @@ import { Dino } from '@/state/types';
 import { PiBone } from 'react-icons/pi';
 import { PriceButton } from '@/components';
 
-export const AttributeRow = ({
-    name,
-    value,
-}: {
-    name: string;
-    value: number;
-}) => {
-    return (
-        <div className="flex flex-row">
-            <div>
-                {name}: {value}
-            </div>
-        </div>
-    );
-};
+// export const AttributeRow = ({
+//     name,
+//     value,
+// }: {
+//     name: string;
+//     value: number;
+// }) => {
+//     return (
+//         <div className="flex flex-row">
+//             <div>
+//                 {name}: {value}
+//             </div>
+//         </div>
+//     );
+// };
 
 const DinoStats = ({ dino }: { dino: Dino }) => (
     <div className="space-y-1">

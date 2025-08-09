@@ -29,6 +29,9 @@ export const DinoStats = ({ dino }: DinoStatsProps) => (
             Health {dino.health} {' / '} {dino.maxHealth}
         </div>
         <div>Level {dino.level}</div>
+        <div>
+            Exp {dino.experience} {' / '} {dino.nextLevelExperience}
+        </div>
         <AttributeRow name="Attack" value={dino.attack} />
         <AttributeRow name="Defense" value={dino.defense} />
         <AttributeRow name="Speed" value={dino.speed} />

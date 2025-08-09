@@ -28,9 +28,9 @@ export const AttributeRow = ({
     );
 };
 
-const DinoStats = () => (
+const DinoStats = ({ dino }: { dino: Dino }) => (
     <div className="space-y-1">
-        <h4 className="font-bold">T-Rex</h4>
+        <h4 className="font-bold">{dino.name}</h4>
         <p>Bones collected: 254</p>
         <p>Combat power: 88</p>
         <button className="mt-2 rounded bg-green-500 px-2 py-1 text-xs">
@@ -45,7 +45,7 @@ export interface DinoIconProps {
 
 export const DinoIcon = ({ dino }: DinoIconProps) => {
     return (
-        <Tooltip content={<DinoStats />}>
+        <Tooltip content={<DinoStats dino={dino} />}>
             <div className="bg-background-900 flex h-14 w-14 flex-row items-start justify-between rounded-sm p-2">
                 <GiDinosaurRex />
                 <span>{dino.level}</span>

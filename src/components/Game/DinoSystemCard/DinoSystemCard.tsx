@@ -10,34 +10,7 @@ import { GameCard } from '@/components/Game/GameCard';
 import { formatNumber, getDinoCost } from '@/util';
 import { Dino } from '@/state/types';
 import { PiBone } from 'react-icons/pi';
-import { PriceButton } from '@/components';
-
-// export const AttributeRow = ({
-//     name,
-//     value,
-// }: {
-//     name: string;
-//     value: number;
-// }) => {
-//     return (
-//         <div className="flex flex-row">
-//             <div>
-//                 {name}: {value}
-//             </div>
-//         </div>
-//     );
-// };
-
-const DinoStats = ({ dino }: { dino: Dino }) => (
-    <div className="space-y-1">
-        <h4 className="font-bold">{dino.name}</h4>
-        <p>Bones collected: 254</p>
-        <p>Combat power: 88</p>
-        <button className="mt-2 rounded bg-green-500 px-2 py-1 text-xs">
-            Challenge
-        </button>
-    </div>
-);
+import { DinoStats, PriceButton } from '@/components';
 
 export interface DinoIconProps {
     dino: Dino;

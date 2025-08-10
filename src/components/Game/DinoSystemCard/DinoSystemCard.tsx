@@ -5,9 +5,9 @@ import { GiDinosaurRex } from 'react-icons/gi';
 
 import { Heading, Tooltip } from '@/components/ui';
 import { useGameState, useGameStateDispatch } from '@/state/hooks';
-import { buildDino } from '@/state/actions';
+import { buildDino, purchaseDinoCapacity } from '@/state/actions';
 import { GameCard } from '@/components/Game/GameCard';
-import { formatNumber, getDinoCost } from '@/util';
+import { formatNumber, getDinoCapacityUpgradeCost, getDinoCost } from '@/util';
 import { Dino } from '@/state/types';
 import { PiBone } from 'react-icons/pi';
 import { DinoStats, PriceButton } from '@/components';
@@ -33,6 +33,7 @@ export const DinoSystemCard = () => {
     const { bones, maxDinos, dinos } = gameState;
 
     const dinoCost = getDinoCost(gameState);
+    const capacityCost = getDinoCapacityUpgradeCost(gameState);
     const canAffordDino = bones >= dinoCost;
     const hasDinoCapacity = maxDinos > dinos.length;
     const canBuildDino = canAffordDino && hasDinoCapacity;
@@ -41,11 +42,23 @@ export const DinoSystemCard = () => {
         dispatch(buildDino());
     }, [dispatch]);
 
+    const handleIncreaseCapacityClicked = useCallback(() => {
+        dispatch(purchaseDinoCapacity());
+    }, [dispatch]);
+    const canIncreaseCapacity = bones >= capacityCost;
+
     return (
         <GameCard icon={<GiDinosaurRex />} title="Build-a-Dino">
             <div>
                 Capacity: {dinos.length} {' / '} {maxDinos}
             </div>
+            <PriceButton
+                icon={<PiBone />}
+                price={formatNumber(capacityCost)}
+                text="Increase Capacity"
+                onClick={handleIncreaseCapacityClicked}
+                disabled={!canIncreaseCapacity}
+            />
             <PriceButton
                 icon={<PiBone />}
                 price={formatNumber(dinoCost)}

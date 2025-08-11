@@ -6,7 +6,7 @@ import { render } from '@/test/util';
 import { Home } from '@/components/pages';
 
 test('should render correctly and navigate when Play is clicked', async () => {
-    render(<Home />);
+    render(<Home posts={[]} />);
 
     // Assert heading and button exist
     expect(

@@ -8,9 +8,10 @@ import { purchaseBoneDiggers } from '@/state/actions';
 import { BoneSystemCard } from '@/components/Game/BoneSystemCard';
 import { createGameState } from '@/state/util';
 
-vi.mock('@/components/Game', () => ({
-    BoneButton: () => <div>MockBoneButton</div>,
-}));
+vi.mock('@/components/Game', async () => {
+    const originalModule = await vi.importActual('@/components/Game');
+    return { ...originalModule, BoneButton: () => <div>MockBoneButton</div> };
+});
 
 vi.mock('@/state/hooks', () => ({
     useGameState: vi.fn(),

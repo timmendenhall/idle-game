@@ -4,7 +4,7 @@ import React, { useCallback } from 'react';
 import { PiBone } from 'react-icons/pi';
 
 import { BoneButton } from '@/components/Game';
-import { Button } from '@/components/ui';
+import { PriceButton } from '@/components/Game';
 import { useGameState, useGameStateDispatch } from '@/state/hooks';
 import { formatNumber, getBoneDiggerCost } from '@/util';
 import { purchaseBoneDiggers } from '@/state/actions';
@@ -33,13 +33,13 @@ export const BoneSystemCard = () => {
                 {formatNumber(bonesPerSecondFromDiggers)} bones/ sec)
             </div>
             <BoneButton />
-            <Button
+            <PriceButton
+                icon={<PiBone />}
+                price={formatNumber(boneDiggerCost)}
+                text="Buy Bone-digger"
                 onClick={handlePurchaseBoneDiggers}
                 disabled={!canAffordBoneDigger}
-            >
-                Buy Bone-digger <PiBone />
-                {formatNumber(boneDiggerCost)}
-            </Button>
+            />
         </GameCard>
     );
 };

@@ -4,7 +4,7 @@ import { BoneButton } from './BoneButton';
 
 const meta = {
     component: BoneButton,
-    title: 'Components/BoneButton',
+    title: 'Components/Game/BoneButton',
 } satisfies Meta<typeof BoneButton>;
 
 export default meta;

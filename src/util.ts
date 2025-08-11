@@ -1,5 +1,6 @@
 import { BASE_BONE_COST_BONE_DIGGER } from '@/constants';
 import { GameState } from '@/state/types';
+import { RequireOnly } from '@/types';
 
 export const getBoneDiggerCost = (
     gameState: RequireOnly<GameState, 'boneDiggers'>,
@@ -22,13 +23,22 @@ export const getBonesPerClick = (
     return 1 + gameState.boneDiggers;
 };
 
-export const getDinoCost = (gameState: RequireOnly<GameState, 'dinos'>) => {
+export const getDinoCost = (
+    gameState: RequireOnly<GameState, 'dinos'>,
+): number => {
     return 5000 * gameState.dinos.length + 1000;
+};
+
+export const getDinoCapacityUpgradeCost = (
+    gameState: RequireOnly<GameState, 'maxDinos'>,
+): number => {
+    return 25000 * gameState.maxDinos + 15000;
 };
 
 export const formatNumber = (value: number): string => {
     return Math.floor(value).toLocaleString();
 };
 
-export type RequireOnly<T, K extends keyof T> = Pick<T, K> &
-    Partial<Omit<T, K>>;
+export const randomItem = <T>(arr: T[]): T => {
+    return arr[Math.floor(Math.random() * arr.length)];
+};

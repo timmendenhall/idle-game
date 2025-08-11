@@ -1,7 +1,8 @@
 export type GameStateActionType =
     | 'game_state/add_bones'
     | 'game_state/build_dino'
-    | 'game_state/purchase_bone_digger';
+    | 'game_state/purchase_bone_digger'
+    | 'game_state/purchase_dino_capacity';
 
 export interface GameStateAction {
     type: GameStateActionType;
@@ -24,4 +25,11 @@ export const purchaseBoneDiggers = (diggersToPurchase: number = 1) => ({
 const BUILD_DINO: GameStateActionType = 'game_state/build_dino';
 export const buildDino = () => ({
     type: BUILD_DINO,
+});
+
+const PURCHASE_DINO_CAPACITY: GameStateActionType =
+    'game_state/purchase_dino_capacity';
+export const purchaseDinoCapacity = (upgradesToPurchase: number = 1) => ({
+    type: PURCHASE_DINO_CAPACITY,
+    payload: upgradesToPurchase,
 });

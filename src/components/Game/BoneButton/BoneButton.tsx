@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { PiBone } from 'react-icons/pi';
-import { Button } from '@/components/ui';
+import { PriceButton } from '@/components/Game';
 import { useGameState, useGameStateDispatch } from '@/state/hooks';
 import { addBones } from '@/state/actions';
 import { getBonesPerClick } from '@/util';
@@ -16,11 +16,10 @@ export const BoneButton = () => {
     };
 
     return (
-        <Button onClick={handleOnClick}>
-            <div className="pr-3">
-                <PiBone />
-            </div>
-            Dig for bones
-        </Button>
+        <PriceButton
+            onClick={handleOnClick}
+            icon={<PiBone />}
+            text="Dig for bones"
+        />
     );
 };
